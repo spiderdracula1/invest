@@ -13,7 +13,21 @@
         Цвет можно выбрать, набрав в Яндексе 
         "Колдунчик цветов" 
         */
+        
     }
+    img{
+        width: 10vh;
+        height: 10vh;
+    }
+    .strong{ font-weight: 900;}
+    .italic{font-style: italic;}
+    .strike{text-decoration: line-through;}
+    table , td{ 
+        border: 1px solid rgba(255, 0, 0, 0.609);
+        border-collapse: collapse;
+        padding: 5px 0px 10px 5px ;
+        box-shadow: 1px 1px 1px 1px aqua;
+        }
 </style>
 <!-- Ссылка на внешний стиль -->
 <link rel="stylesheet" href="css/style.css">
@@ -58,11 +72,11 @@
     </dl>
     <p></p>
     <h2 id="мячик">
-        <b>Мячик</b><br>
-        <i>Уронила в речку мячик</i><br>
-        - Тише, Танечка не плачь<br>
-        <strike>Не утонет в речке мяч.</strike><br>
-        <strong>Автор А.Л. Барто</strong>
+        <span class="strong">Мячик</span><br>
+        <span class= "strong">Уронила в речку мячик</span><br>
+        <span class="italic">- Тише, Танечка не плачь</span><br>
+        <span class="strike"> Не утонет в речке мяч.</span><br>
+        <span class="stong italic" >Автор А.Л. Барто</span>
     </h2>
     <p lang="jp">
         <ruby>
@@ -87,6 +101,7 @@
         <li>19:00 - 20:30</li>
     </ol>
     <img src="img/1.jpeg" alt="весёлая картинка">
+    <img src="img/2.jpg" alt="весёлая картинка">
     <table>
         <thead>
             <tr>

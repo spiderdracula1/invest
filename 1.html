@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        body{
+            background-color: #feeddc;
+        }
+        .area {
+            display: flex;
+            justify-content: center;
+        }
+        .area .pic{
+            background-color: white;
+            width: 344px;
+            height: 496px;
+            margin: 20px;
+            border: 2px solid #b0b1ad;
+            box-shadow:-2px 2px 2px 2px #8b8076;
+            position: relative;
+        }
+        .area .pic div {
+            position: absolute;
+            
+
+        }
+        .gray{
+            background-color: #dfe1e6;
+        }
+        .blue{
+            background-color: #a8c2cf;
+        }
+        .brown{
+            background-color: #664a32;
+        }
+        .border{
+            border: 3px solid #525252;
+            z-index: 2;
+        }
+        
+        #pic_center .blue{
+            height: 120px;
+            width: 120px;
+            top:114px;
+            left: 38px;
+        }
+        #pic_center .brown{
+            height: 80px;
+            width: 80px;
+            top:282px;
+            left:132px;
+        }
+        #pic_center .gray{
+            height: 35px;
+            width: 70px;
+            top:156px;
+            left:211px;
+        }
+        #pic_center .border{
+            height: 142px;
+            width: 142px;
+            top:174px;
+            left:98px;
+        }
+        #pic_left .blue{
+            height: 124px;
+            width: 124px;
+            top:90px;
+            left:110px;
+            border-radius: 62px;
+        }
+        #pic_left .brown{
+            height: 80px;
+            width: 80px;
+            top:258px;
+            left:132px;
+            border-radius: 62px;
+        }
+        #pic_left .gray{
+            height: 40px;
+            width: 80px;
+            top:348px;
+            left:132px;
+            border-radius: 40px 40px 0 0;
+        }
+        #pic_left .border{
+            height: 142px;
+            width: 142px;
+            top:158px;
+            left:98px;
+            border-radius: 72px;
+        }
+        #pic_right .triangle_blue{
+        display: inline-block;
+        width: 0px;
+        height: 0px;
+        border-style: solid;
+        top: 87px;
+        left:113px;
+        border-width: 0 54px 108px 54px;
+        border-color: transparent transparent #a8c2cf transparent;
+        }
+        #pic_right .triangle_brown{
+            width: 0;
+            height: 0;
+            top: 258px;
+            left: 132px;
+            border-style: solid;
+            display: inline-block;
+            border-width: 0 34px 68px 34px;
+            border-color: transparent transparent #664a32 transparent;
+        }
+        #pic_right .triangle_gray{
+            width: 0;
+            height: 0;
+            top: 358px;
+            left: 132px;
+            border-style: solid;
+            display: inline-block;
+            border-width: 0 34px 68px 34px;
+            border-color: transparent transparent #dfe1e6 transparent;
+        }
+        #pic_right .triangle_gray:after{
+            content: "";
+            background-color: #fff;
+            position: absolute;
+            height: 32px;
+            width: 136px;
+            left: -34px;
+        }
+        #pic_right #triangle_border_bottom{
+        background-color: #525252;
+        z-index: 2;
+        width: 142px;
+        height: 2px;
+        top: 295px;
+        left: 96px;
+        }
+        #pic_right #triangle_border_left{
+        background-color: #525252;
+        z-index: 2;
+        width: 142px;
+        height: 2px;
+        top: 234px;
+        left: 60px;
+        rotate: -60deg;
+        }
+        #pic_right #triangle_border_right{
+        background-color: #525252;
+        z-index: 2;
+        width: 142px;
+        height: 2px;
+        top: 234px;
+        left: 130px;
+        rotate: 60deg;
+        }
+    </style>
+</head>
+<body>
+    <div class="area">
+        <div class="pic" id="pic_left">
+            <div class="border"></div>
+            <div class="blue"></div>
+            <div class="brown"></div>
+            <div class="gray"></div>
+
+        </div>
+        <div class="pic" id="pic_center">
+            <div class="border"></div>
+            <div class="blue"></div>
+            <div class="brown"></div>
+            <div class="gray"></div>
+        </div>
+        <div class="pic" id="pic_right">
+            <div id="triangle_border_left" class="triangle_border"></div>
+            <div id="triangle_border_right" class="triangle_border"></div>
+            <div id="triangle_border_bottom" class="triangle_border"></div>
+            <div class="triangle_blue"></div>
+            <div class="triangle_brown"></div>
+            <div class="triangle_gray"></div>
+        </div>
+    </div>    
+</body>
+</html>
