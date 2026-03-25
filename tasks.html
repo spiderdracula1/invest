@@ -19,6 +19,9 @@
         width: 10vh;
         height: 10vh;
     }
+    .vacation{
+        background-color: rgb(78, 245, 0);
+    }
     .strong{ font-weight: 900;}
     .italic{font-style: italic;}
     .strike{text-decoration: line-through;}
@@ -39,7 +42,10 @@
         <div class="odd"><h2 id ="schedule">расписание звонков</h2></div>
         <div class="even"><h2 id = "timetable">расписание пар</h2></div>
         <div class="odd"><h2 id = "diary">дневник</h2></div>
-        <div class="even"><h2 id ="accauntancy">бухгалтерия</h2></div>
+
+        <div class="even"><h2 id ="accauntancy">бухгалтерия</h2>
+            <div id="wrapper"></div>
+        </div>
         <div class="cat"></div>
         <div id="father">
             <div id="son"></div>
@@ -154,7 +160,7 @@
         </label> <input type="text" id="class" value=""></div>
     </div>
     <div><label for="color">Цвет обложки</label>
-    <input type="color" name="" id=""></div>
+    <input type="color" name="" id="color"></div>
     <div>
         <label for="year">
             год начала учебного года  
@@ -305,6 +311,9 @@
     Employee.prototype.calculateNetSalary = function () {
         return +(this.salary*1.15*0.87).toFixed(2);
     }
+    Employee.prototype.calculateNetSalary13 = function () {
+        return +(this.salary13*1.15*0.87).toFixed(2);
+    }
     Employee.prototype.calculateYearSalary = function(){
         return +(this.calculateNetSalary()*12).toFixed(2);
     }
@@ -342,19 +351,46 @@
         const tempDate = new Date(this.birthday);
         return `${tempDate.getDate()}.${months[tempDate.getMonth()][1]}.${tempDate.getFullYear()}`;
     }
+    Employee.prototype.getAgeString = function (){
+        const[ageYear]=this.calculateAge();
+        if (ageYear % 10 === 1 && ageYear%100!==11){
+            return ageYear + " год"
+        }
+        if (ageYear%10 ===2||ageYear%10 ===3||ageYear%10 ===4 && ageYear%100!==12 && ageYear%100!==13 && ageYear%100!==14) {
+            return ageYear + " года"
+        }
+        return ageYear + " лет"
+    }
+    Employee.prototype.getPensionString = function(){
+        const[rtrYear,rtrMonth]=this.remainsToPension();
+        if (rtrYear===null) return "Уже на пенсии";
+        if (rtrYear===0) return `${rtrMonth} месяцев`;
+        let yearStr ;        
+        if (rtrYear % 10 === 1 && rtrYear%100!==11){
+            yearStr = rtrYear + " год"
+        }else 
+        if (rtrYear%10 ===2||rtrYear%10 ===3||rtrYear%10 ===4 && rtrYear%100!==12 && rtrYear%100!==13 && rtrYear%100!==14) {
+            yearStr = rtrYear + " года"
+        }else
+        yearStr = rtrYear + " лет";
+        if (rtrMonth===0) return yearStr;
+        return `${yearStr} ${rtrMonth} Месяцев`
+
+
+    }
     const months = [
-        ['','января'],
-        ['','февраля'],
-        ['','марта'],
-        ['','апреля'],
-        ['','мая'],
-        ['','июня'],
-        ['','июля'],
-        ['','августа'],
-        ['','сентября'],
-        ['','октября'],
-        ['','ноября'],
-        ['','декабря']
+        ['январь','января'],
+        ['февраль','февраля'],
+        ['март','марта'],
+        ['апрель','апреля'],
+        ['май','мая'],
+        ['июнь','июня'],
+        ['июль','июля'],
+        ['август','августа'],
+        ['сентябрь','сентября'],
+        ['октябрь','октября'],
+        ['ноябрь','ноября'],
+        ['декабрь','декабря']
 ]
     for (let i = 0; i < employees.length; i++) {
         const employee= new Employee(employees[i]);
@@ -367,7 +403,77 @@
 
         console.log(employee, netSalary,yearSalary,taxReturn,newSalary,remains,formatOfBirthDay);
     }
+    let table = `<table><thead>
+        <tr>
+                <td>№</td>
+                <td>ФИО</td>
+                <td>Дата рождения</td>
+                <td>возраст</td>
+                <td>зарплата</td>
+            `;
+            for (let i=0; i <12;i++){
+                table+= `<td>${months[i][0]}</td>`
+            }
+            table +=`
+                <td>Зарплата в ${new Date().getFullYear()+1}</td>
+                <td>общий доход </td>
+                <td>к вычету</td>
+                <td>осталось до пенсии</td>
+            <tr</thead><tbody>
+                `;
+            const RUB="&#x20bd"
+                for (let i = 0; i< employees.length;i++){
+                const employee= new Employee(employees[i]);
+                table += `<tr>
+                        <td>${i+1}</td>
+                        <td>${employee.surname} ${employee.name} ${employee.patronymic}</td>
+                        <td>${employee.formatBirthDay(months)}</td>
+                        <td>${employee.getAgeString()}</td>
+                        <td>${employee.salary} ${RUB}</td>`;
+                        for (let j =0 ; j<11;j++){
+                            table +=`<td ${j===employee.vacation?'class="vacation"':""}> ${employee.calculateNetSalary()} ${RUB}</td> `
+                        }
+                    table +=`
+                        <td ${11===employee.vacation?'class="vacation"':""}>${employee.calculateNetSalary()+employee.calculateNetSalary13()} ${RUB}</td>
+                        <td>${employee.calculateNewSalary()} ${RUB}</td>
+                        <td>${employee.calculateYearSalary()} ${RUB}</td>
+                        <td>${employee.calculateTaxReturn()} ${RUB}</td>
+                        <td>${employee.getPensionString()} </td>
+                        
+                    
+                    </tr>`
 
+            }
+            table += ` </tbody></table>`;
+            function generateDiary (e){
+                e.preventDefault();
+                let newWin = window.open("about:blank","дневник","width = 420,height=420")
+                let template = `
+                <style>
+                    body{
+                        margin-top:100px;
+                        text-align:center;
+                        font-size:large;
+                        background-color:${document.querySelector('#color'.value)};
+
+                    }    
+                    
+                    
+                </style>
+                <h1>Дневник</h1>
+                <div>учени${document.querySelector('[name=gender]:checked').value=="m"?"ка":"цы"} 
+                    ${document.querySelector('#class').value} класса </div>
+                <div>${document.querySelector('#school').value} ${document.querySelector('#place').value}</div>
+                <div>${document.querySelector('#fio').value}</div>    
+                <div>${document.querySelector('#year').value}/${+document.querySelector('#year').value+1} учебного года</div>    
+                    
+                    `;
+                newWin.document.write(template);
+            }
+            window.onload = () =>{
+                document.querySelector('#wrapper').innerHTML =table;
+                document.querySelector('#create').onclick =generateDiary;
+            }
 </script>
 
 </html>
