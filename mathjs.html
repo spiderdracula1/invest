@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.45/dist/katex.min.css" integrity="sha384-UA8juhPf75SzzAMA/4fo3yOU7sBJ0om7SCD2GHq0fZqZco6tr1UCV7nUbk9J90JM" crossorigin="anonymous">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.45/dist/katex.min.js" integrity="sha384-Tt7wBxLKwSzFVRET4O4U9H6v8MNaQ/CjN2FMP4xFm0ErrFu6aNqoonRVW5W40iGI" crossorigin="anonymous"></script>
+</head>
+<body>
+
+    <div id="table"></div>
+    <script src="dist/algebrite.bundle-for-browser.js"></script>
+    <script src="dist/math.js"></script>
+    <script>
+        const funcs=[
+            'const',
+            'x',
+            'x^n',
+            'sqrt(x)', 
+            'a^x', 
+            'e^x', 
+            'sin(x)', 
+            'cos(x)', 
+            'tan(x)', 
+            'arcsin(x)'.replace('arc','a'), 
+            'arccos(x)'.replace('arc','a'), 
+            'arctan(x)'.replace('arc','a'), 
+            'log(x)', 
+            'log(x,a)', 
+        ]
+        function parseTex(func) {
+            return katex.renderToString(math.parse(func).toTex());
+        }
+            window.onload = () =>{
+                let table = '<table><thead>'
+                table += '<tr><td> Функция</td><td> Производная</td></tr></thead><tbody>';
+                for (let  func of funcs){
+                    table+= '<tr>';
+                    table+= '<td>'+parseTex(func)+'</td>';
+                    table+= '<td>'+katex.renderToString(math.derivative(func,'x').toTex())+'</td>';
+                    table+= '</tr>';
+                }
+                    table += '</tbody></table>';
+                document.querySelector('#table').innerHTML = table;
+            }
+    </script>
+</body>
+</html>
